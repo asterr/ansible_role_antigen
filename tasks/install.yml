@@ -1,11 +1,11 @@
 ---
 - name: install dependencies
-  become: yes
+  become: "{{ ansible_os_family != 'Darwin' }}"
   package:
     name:
       - git
       - zsh
-      - tar
+      - "{{ 'gnu-tar' if ansible_os_family == 'Darwin' else 'tar'}}"
       - gzip
     state: present
 
